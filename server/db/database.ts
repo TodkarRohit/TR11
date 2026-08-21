@@ -21,11 +21,11 @@ function createDummyDb(): any {
     all: () => [],
   };
   return {
-    exec: () => {},
-    pragma: () => {},
+    exec: () => { },
+    pragma: () => { },
     prepare: () => dummyStatement,
     transaction: (fn: any) => fn,
-    close: () => {},
+    close: () => { },
   };
 }
 
@@ -49,7 +49,7 @@ export function getDb(): any {
         const rawDb = new DatabaseSync(dbPath);
         rawDb.exec('PRAGMA foreign_keys = ON;');
         if (!isVercel) {
-          try { rawDb.exec('PRAGMA journal_mode = WAL;'); } catch {}
+          try { rawDb.exec('PRAGMA journal_mode = WAL;'); } catch { }
         }
         dbInstance = {
           exec: (sql: string) => rawDb.exec(sql),
@@ -96,7 +96,7 @@ export function closeDb(): void {
   if (dbInstance) {
     try {
       dbInstance.close();
-    } catch {}
+    } catch { }
     dbInstance = null;
   }
 }
